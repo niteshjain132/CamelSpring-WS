@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:soap="http://cxf.apache.org/bindings/soap"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://camel.apache.org/schema/cxf
+        http://camel.apache.org/schema/cxf/camel-cxf.xsd
+    http://camel.apache.org/schema/spring
+        http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<cxf:cxfEndpoint id="camel_spring-ws" address="/camel/camel_spring-ws"
+		endpointName="c:camel_spring" serviceName="c:camel_spring-ws"
+		serviceClass="com.main.listeners.CamelSpring"
+		xmlns:c= "http://www.test.com/wsdl/CamelSpring/provisioning/v1_0/interface"/>
+
+	<camelContext trace="false" id="camel" xmlns="http://camel.apache.org/schema/spring">
+    <route>
+        <from uri="cxf:bean:camel_spring-ws"/>
+        <choice>
+            <when>
+                <simple>${in.header.operationName} == 'getMessage'</simple>
+                <log message="Calling getMessage Processor Bean"/>
+                <to uri="getMessage"/>
+            </when>
+        </choice>
+    </route>
+    <route id="nite">
+        <from uri="direct:start"/>
+        <process ref="testRoute"/>
+    </route>
+</camelContext>
+
+	<bean id="testRoute" class="com.main.TestRouter" />
+
+	<bean id="getMessage" class="com.main.GetMessageProcessor" />
+
+</beans>

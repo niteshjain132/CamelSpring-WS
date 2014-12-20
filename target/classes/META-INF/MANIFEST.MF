@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1419067576587
+Build-Jdk: 1.7.0_51
+Built-By: gni
+Bundle-ManifestVersion: 2
+Bundle-Name: CamelSpring
+Bundle-SymbolicName: com.test.CamelSpring
+Bundle-Version: 1.0.0
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.main;uses:="org.apache.camel.impl,org.apache.camel,o
+ rg.springframework.context.support,org.springframework.context,com.sun.
+ istack.logging";version="1.0.0",com.main.listeners;uses:="javax.jws,jav
+ ax.xml.ws,javax.xml.bind.annotation";version="1.0.0"
+Import-Package: com.sun.istack.logging,javax.jws,javax.xml.bind.annotati
+ on,javax.xml.ws,org.apache.camel;version="[2.12,3)",org.apache.camel.im
+ pl;version="[2.12,3)",org.springframework.context,org.springframework.c
+ ontext.support
+Tool: Bnd-1.50.0
